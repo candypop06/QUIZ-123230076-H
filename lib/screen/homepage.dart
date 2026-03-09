@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'detail.dart';
-import 'models/movie_model.dart';
+import '../models/movie_model.dart';
 
 class HomePage extends StatelessWidget {
   final String nama;
