@@ -1,0 +1,22 @@
+import 'package:flutter/material.dart';
+import 'homepage.dart';
+
+class Root extends StatefulWidget {
+  final String nama;
+  const Root({super.key, required this.nama});
+  @override
+  State<Root> createState() => _RootState();
+}
+
+class _RootState extends State<Root> {
+  int _selectedIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> pages = [
+      HomePage(nama: widget.nama),
+    ];
+    return Scaffold(
+      body: pages[_selectedIndex],
+    );
+  }
+}
