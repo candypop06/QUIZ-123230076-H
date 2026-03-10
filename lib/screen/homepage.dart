@@ -2,17 +2,37 @@ import 'package:flutter/material.dart';
 import 'detail.dart';
 import '../models/movie_model.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final String nama;
   const HomePage({super.key, required this.nama});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late List<bool> _isFav;
+
+  @override
+  void initState() {
+    super.initState();
+    // awalnya semua belum difavoritkan
+    _isFav = List<bool>.filled(movieList.length, false);
+  }
+
+  void _toggleList(int index) {
+    setState(() {
+      _isFav[index] = !_isFav[index];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Welcome, $nama!',
-          style: TextStyle(
+          'Welcome, ${widget.nama}!',
+          style: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
             fontSize: 20,
@@ -31,7 +51,6 @@ class HomePage extends StatelessWidget {
                 ),
               );
             },
-
             child: Card(
               margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
               elevation: 0,
@@ -51,10 +70,9 @@ class HomePage extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                     const SizedBox(width: 10),
-
                     Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch ,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
                             '${movieList[index].title} (${movieList[index].year})',
@@ -63,7 +81,7 @@ class HomePage extends StatelessWidget {
                               fontSize: 16,
                             ),
                           ),
-                          SizedBox(height: 5),
+                          const SizedBox(height: 5),
                           Text(
                             movieList[index].genre,
                             style: const TextStyle(
@@ -71,15 +89,15 @@ class HomePage extends StatelessWidget {
                               fontSize: 14,
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Row(
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.star,
                                 color: Colors.amber,
                                 size: 18,
                               ),
-                              SizedBox(width: 5),
+                              const SizedBox(width: 5),
                               Text(
                                 '${movieList[index].rating}/10',
                                 style: const TextStyle(
@@ -92,8 +110,13 @@ class HomePage extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    Icon(Icons.bookmark, color: Colors.blue),
+                    IconButton(
+                      onPressed: () => _toggleList(index),
+                      icon: Icon(
+                        _isFav[index] ? Icons.bookmark :Icons.bookmark_border,
+                        color: _isFav[index] ? Colors.blue : Colors.black,
+                      ),
+                    ),
                   ],
                 ),
               ),
