@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'homepage.dart';
+import 'profile.dart';
 
 class Root extends StatefulWidget {
   final String nama;
@@ -14,9 +15,28 @@ class _RootState extends State<Root> {
   Widget build(BuildContext context) {
     final List<Widget> pages = [
       HomePage(nama: widget.nama),
+      ProfilePage(nama: widget.nama),
     ];
     return Scaffold(
       body: pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Beranda'
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profil'
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'root.dart'; // Add this import - adjust the path/filename as needed
+import 'root.dart';
 
 class halamanLogin extends StatefulWidget {
   const halamanLogin({super.key});
@@ -25,7 +25,7 @@ class _halamanLoginState extends State<halamanLogin> {
       return;
     }
 
-    if (username == "076" && password == "076") {
+    if (username == "akfina_imup" && password == "076") {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => Root(nama: username)),
@@ -44,33 +44,45 @@ class _halamanLoginState extends State<halamanLogin> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.orange,
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            "Login",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         body: Padding(
           padding: EdgeInsets.all(50),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Icon(
+                  Icons.restaurant_menu,
+                  size: 50,
+                  color: Colors.orange
+                ),
+                SizedBox(height: 20),
                 Text(
-                  "Login",
-                  textAlign: TextAlign.left,
+                  "Food Menu App",
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 30,
+                    color: Colors.black,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 5),
-                Text(
-                  "Welcome back to MiniLens!",
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: const Color.fromARGB(150, 0, 0, 0)
-                  ),
-                ),
-                SizedBox(height: 15),
+                SizedBox(height: 20),
+
                 _usernameField(),
                 _passwordField(),
-                SizedBox(height: 15),
+                SizedBox(height: 20),
                 _loginButton(),
               ],
             ),
@@ -87,13 +99,14 @@ class _halamanLoginState extends State<halamanLogin> {
         enabled: true,
         controller: _usernameController,
         decoration: InputDecoration(
+
           hintText: 'Username',
           contentPadding: const EdgeInsets.all(8.0),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(0)),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
-          enabledBorder: OutlineInputBorder( // yang dipencet
-            borderRadius: BorderRadius.all(Radius.circular(0)),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
             borderSide:BorderSide(color: Colors.black),
           ),
         ),
@@ -118,14 +131,6 @@ class _halamanLoginState extends State<halamanLogin> {
             borderRadius: BorderRadius.zero,
             borderSide: BorderSide(color: Colors.black),
           ),
-          suffixIcon: IconButton(
-            icon: Icon(_obscure ? Icons.visibility : Icons.visibility_off),
-            onPressed: () {
-              setState(() {
-                _obscure = !_obscure;
-              });
-            },
-          ),
         ),
       ),
     );
@@ -136,12 +141,12 @@ class _halamanLoginState extends State<halamanLogin> {
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.grey,
-          foregroundColor: Colors.white,
+          backgroundColor: Colors.orange,
+          // foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.zero,
+            borderRadius: BorderRadius.all(Radius.circular(25)),
           ),
-          padding: const EdgeInsets.symmetric(vertical: 25),
+          padding: const EdgeInsets.symmetric(vertical: 5),
         ),
         onPressed: _login,
         child: const Text(

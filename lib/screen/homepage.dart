@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'detail.dart';
-import '../models/movie_model.dart';
+import '../models/dummy_menu.dart';
 
 class HomePage extends StatefulWidget {
   final String nama;
@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     // awalnya semua belum difavoritkan
-    _isFav = List<bool>.filled(movieList.length, false);
+    _isFav = List<bool>.filled(dummyFoods.length, false);
   }
 
   void _toggleList(int index) {
@@ -30,17 +30,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.orange,
         title: Text(
-          'Welcome, ${widget.nama}!',
-          style: const TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
+          'Food Menu',
+          style: TextStyle(
+            color: Colors.white,
             fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
       body: ListView.builder(
-        itemCount: movieList.length,
+        itemCount: dummyFoods.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
@@ -53,9 +54,9 @@ class _HomePageState extends State<HomePage> {
             },
             child: Card(
               margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
-              elevation: 0,
+              elevation: 5,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.zero,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
                 side: BorderSide(color: Colors.black, width: 1),
               ),
               child: Padding(
@@ -64,9 +65,9 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.network(
-                      movieList[index].imgUrl,
-                      width: 70,
-                      height: 100,
+                      dummyFoods[index].image,
+                      width: 100,
+                      height: 80,
                       fit: BoxFit.cover,
                     ),
                     const SizedBox(width: 10),
@@ -75,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(
-                            '${movieList[index].title} (${movieList[index].year})',
+                            '${dummyFoods[index].name}',
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -83,39 +84,20 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            movieList[index].genre,
+                            '${dummyFoods[index].category} - Rp ${dummyFoods[index].price}',
                             style: const TextStyle(
                               color: Colors.grey,
                               fontSize: 14,
                             ),
                           ),
                           const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                                size: 18,
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                '${movieList[index].rating}/10',
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
                         ],
                       ),
                     ),
-                    IconButton(
-                      onPressed: () => _toggleList(index),
-                      icon: Icon(
-                        _isFav[index] ? Icons.bookmark :Icons.bookmark_border,
-                        color: _isFav[index] ? Colors.blue : Colors.black,
-                      ),
+                    Icon(
+                      Icons.arrow_forward_ios,
+                      color: Colors.grey,
+                      size: 16
                     ),
                   ],
                 ),
